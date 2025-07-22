@@ -1,0 +1,170 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e66465, #9198e5, #da70d6);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  color: #333;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Header and Nav */
+.header {
+  background: linear-gradient(to right, #614385, #516395);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Hero Sections */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  color: #fff;
+}
+
+.btn {
+  background: white;
+  color: #bb377d;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #ffe3ec;
+}
+
+/* Product Section */
+.product-preview {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px;
+}
+
+.product-preview img {
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.product-preview img:hover {
+  transform: scale(1.05);
+}
+
+/* About/Content Area */
+.about-content {
+  padding: 30px;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Footer Slideshow */
+footer {
+  background: linear-gradient(to right, #141E30, #243B55);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.slideshow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slideshow img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 1s ease-in-out;
+}
+
+.slideshow img.active {
+  opacity: 1;
+  position: relative;
+}
+
+/* Form Styling */
+.order-form {
+  max-width: 500px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.order-form input {
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Responsive (Optional) */
+@media (max-width: 600px) {
+  .product-preview {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-preview img {
+    width: 80%;
+  }
+
+  .slideshow img {
+    width: 150px;
+    height: 150px;
+  }
+}

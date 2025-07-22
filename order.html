@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Order - MISS AURA</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="script.js" defer></script>
+</head>
+<body style="background: linear-gradient(to right, #ffdde1, #ee9ca7); font-family: 'Segoe UI', sans-serif;">
+  <header class="header">
+    <h1 style="color: #ad1457; text-shadow: 1px 1px 2px #fff;">MISS AURA</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Product</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="order.html">My Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" style="background: linear-gradient(to right, #4facfe, #00f2fe); padding: 30px 0; text-align: center; color: white;">
+    <h2 style="font-size: 2em;">Place Your Order</h2>
+  </section>
+
+  <section class="order-section" style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+    <form id="orderForm" style="background: #fff; padding: 30px 40px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.15); max-width: 500px; width: 100%;">
+      <h3 style="text-align: center; color: #c2185b; margin-bottom: 20px; font-size: 1.5em;">🛍️ Fill Your Details</h3>
+
+      <label style="color: #6a1b9a; font-weight: bold;">Name:</label>
+      <input type="text" name="name" required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 15px;" />
+
+      <label style="color: #6a1b9a; font-weight: bold;">Address:</label>
+      <textarea name="address" required rows="3" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 15px;"></textarea>
+
+      <label style="color: #6a1b9a; font-weight: bold;">Mobile:</label>
+      <input type="text" name="mobile" required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 15px;" />
+
+      <label style="color: #6a1b9a; font-weight: bold;">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" min="1" value="1" required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 15px; font-size: 15px;" />
+
+      <label style="color: #6a1b9a; font-weight: bold;">Payment Method:</label>
+      <select name="payment" id="paymentMethod" required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 20px; font-size: 15px;">
+        <option value="GPay - girijggh2023@okicici">GPay - 6383738729</option>
+        <option value="Cash on Delivery">Cash on Delivery</option>
+      </select>
+
+      <p style="margin-bottom: 10px; font-size: 16px; color: #555;">💰 <strong>Price per product:</strong> ₹90</p>
+      <p id="totalAmount" style="margin-bottom: 20px; font-size: 18px; font-weight: bold; color: #2e7d32;">Total Amount: ₹90</p>
+
+      <button type="submit" style="width: 100%; background: linear-gradient(to right, #ec407a, #d81b60); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 17px; cursor: pointer; transition: 0.3s ease;">
+        ✅ Place Order
+      </button>
+    </form>
+  </section>
+
+  <section class="summary-section" style="max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none;" id="orderSummary">
+    <h3 style="color: #c2185b; margin-bottom: 20px; text-align: center;">🧾 Order Summary</h3>
+    <pre id="summaryContent" style="white-space: pre-wrap; color: #333; font-size: 16px;"></pre>
+  </section>
+
+  <footer>
+    <div class="slideshow">
+      <img id="slide-img" src="herbal beauty powdern with product name_MISS AURA_2.jpg" alt="Slideshow Image" />
+    </div>
+    <p style="text-align: center; padding: 10px; font-size: 14px; color: #666;">© 2025 Miss Aura. All rights reserved.</p>
+  </footer>
+
+  <!-- Load EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <script>
+    emailjs.init("1dX70LWNaUSi2zWpE");
+
+    const pricePerItem = 90;
+    const quantityInput = document.getElementById("quantity");
+    const totalAmount = document.getElementById("totalAmount");
+    const paymentDropdown = document.getElementById("paymentMethod");
+
+    quantityInput.addEventListener("input", function () {
+      const quantity = parseInt(quantityInput.value);
+      const total = quantity * pricePerItem;
+      totalAmount.textContent = `Total Amount: ₹${total}`;
+    });
+
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const form = this;
+      const name = form.name.value;
+      const address = form.address.value;
+      const mobile = form.mobile.value;
+      const quantity = form.quantity.value;
+      const payment = form.payment.value;
+      const total = quantity * pricePerItem;
+
+      const orderSummary = `Name: ${name}\nAddress: ${address}\nMobile: ${mobile}\nQuantity: ${quantity}\nTotal Amount: ₹${total}\nPayment Method: ${payment}`;
+
+      localStorage.setItem("missAuraOrder", orderSummary);
+      document.getElementById("summaryContent").textContent = orderSummary;
+      document.getElementById("orderSummary").style.display = "block";
+
+      emailjs.send("service_mcuuktq", "template_5opd9t5", {
+        name: name,
+        address: address,
+        mobile: mobile,
+        quantity: quantity,
+        total: `₹${total}`,
+        payment: payment
+      }).then(function(response) {
+        if (payment.includes("GPay")) {
+          alert("✅ Order placed! Redirecting to UPI app...");
+
+          const upiLink = `upi://pay?pa=girijggh2023@okicici&pn=Miss%20Aura&am=${total}&cu=INR`;
+          const a = document.createElement('a');
+          a.href = upiLink;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          alert("✅ Order placed! You can pay on delivery.");
+        }
+      }, function(error) {
+        alert("❌ Something went wrong. Please try again.");
+        console.error("EmailJS Error:", error);
+      });
+    });
+  </script>
+</body>
+</html>
